@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "./config";
 
 export function middleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers["authorization"] ?? "";
@@ -7,7 +8,7 @@ export function middleware(req: Request, res: Response, next: NextFunction) {
     res.status(401).json({ message: "Unauthorized" });
   } else {
     try {
-      const decoded = jwt.verify(token, "secret");
+      const decoded = jwt.verify(token, JWT_SECRET);
       if (decoded) {
         //@ts-ignore
         req.userId = decoded.userId;
