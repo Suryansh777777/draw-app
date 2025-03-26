@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  name     String
+  avatar   String
+  rooms    Room[] // a user can be in (or own ) multiple rooms but a room can only have one admin one admin ID (one to many relationship)
+  chats    Chat[] // a user can have multiple chats (one to many relationship)
+}
+
+model Room {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique // This is the room's unique identifier (e.g. chemistry-123)
+  createdAt DateTime @default(now())
+  adminId   String // This is the user's unique identifier (e.g. surya-123) should be a foreign key to the User table
+  admin     User     @relation(fields: [adminId], references: [id]) // a single room can only have one admin
+  Chat      Chat[] //Every room has multiple chats messages but every chat message belongs to a single room
+}
+
+model Chat {
+  id      Int    @id @default(autoincrement())
+  roomId  Int
+  message String
+  userId  String
+  room    Room   @relation(fields: [roomId], references: [id]) //the room Id references the id field in the Room table 
+  User    User   @relation(fields: [userId], references: [id]) //every chat will have an associated user 
+}
