@@ -14,11 +14,11 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
+  id       String  @id @default(uuid())
+  email    String  @unique
   password String
   name     String
-  avatar   String
+  avatar   String?
   rooms    Room[] // a user can be in (or own ) multiple rooms but a room can only have one admin one admin ID (one to many relationship)
   chats    Chat[] // a user can have multiple chats (one to many relationship)
 }
