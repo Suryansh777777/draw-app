@@ -29,7 +29,7 @@ model Room {
   createdAt DateTime @default(now())
   adminId   String // This is the user's unique identifier (e.g. surya-123) should be a foreign key to the User table
   admin     User     @relation(fields: [adminId], references: [id]) // a single room can only have one admin
-  Chat      Chat[] //Every room has multiple chats messages but every chat message belongs to a single room
+  chats     Chat[] //Every room has multiple chats messages but every chat message belongs to a single room
 }
 
 model Chat {
