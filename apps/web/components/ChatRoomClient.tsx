@@ -13,6 +13,7 @@ export function ChatRoomClient({
   const { socket, loading } = useSocket();
   const [chats, setChats] = useState(messages);
   const [currentMessage, setCurrentMessage] = useState("");
+
   useEffect(() => {
     if (socket && !loading) {
       socket.send(JSON.stringify({ type: "join_room", roomId: id }));
@@ -27,8 +28,8 @@ export function ChatRoomClient({
 
   return (
     <div>
-      {messages.map((message, index) => {
-        return <div key={index}>{message.message}</div>;
+      {chats.map((chat, index) => {
+        return <div key={index}>{chat.message}</div>;
       })}
       <input
         value={currentMessage}
@@ -44,7 +45,9 @@ export function ChatRoomClient({
             })
           )
         }
-      ></button>
+      >
+        SEND
+      </button>
     </div>
   );
 }
