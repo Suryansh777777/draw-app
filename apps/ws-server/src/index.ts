@@ -49,7 +49,10 @@ wss.on("connection", (ws, request) => {
   });
 
   ws.on("message", async function message(data) {
-    const parsedData = JSON.parse(data as unknown as string); //{type:"join_room",roomId:"room1"}
+    if (typeof data !== "string") {
+      return;
+    }
+    const parsedData = JSON.parse(data); //{type:"join_room",roomId:"room1"}
 
     if (parsedData.type === "join_room") {
       const user = users.find((x) => x.ws === ws); // find this user in global users array and push the room id
