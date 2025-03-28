@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Pencil } from "lucide-react";
+import SignInForm from "@/components/signin-form";
 
 export const metadata: Metadata = {
   title: "Sign In | DrawIt",
@@ -34,7 +35,9 @@ export default function SignInPage() {
             </p>
           </div>
 
-          <div className="mt-8">{/* <SignInForm /> */}</div>
+          <div className="mt-8">
+            <SignInForm />
+          </div>
         </div>
       </div>
 

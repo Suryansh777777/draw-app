@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Pencil } from "lucide-react";
+import SignUpForm from "@/components/signup-form";
 
 export const metadata: Metadata = {
   title: "Sign Up | DrawIt",
@@ -37,7 +38,9 @@ export default function SignUpPage() {
             </p>
           </div>
 
-          <div className="mt-8">{/* <SignUpForm /> */}</div>
+          <div className="mt-8">
+            <SignUpForm />
+          </div>
         </div>
       </div>
 
