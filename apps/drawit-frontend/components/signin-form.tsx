@@ -9,7 +9,6 @@ import { z } from "zod";
 import { ArrowRight, Github, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
