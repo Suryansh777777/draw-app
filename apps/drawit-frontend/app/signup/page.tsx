@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Pencil } from "lucide-react";
-import SignUpForm from "@/components/signup-form";
 
 export const metadata: Metadata = {
   title: "Sign Up | DrawIt",
@@ -101,8 +100,8 @@ export default function SignUpPage() {
               />
               <div>
                 <p className="text-white/90 italic">
-                  "DrawIt has completely changed how I create diagrams for my
-                  presentations. It's intuitive and powerful."
+                  &quot;DrawIt has completely changed how I create diagrams for
+                  my presentations. Its intuitive and powerful.&quot;
                 </p>
                 <p className="mt-1 text-sm text-white/70">
                   Sarah Johnson, Product Designer
