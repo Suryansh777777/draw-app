@@ -33,7 +33,8 @@ export async function initDraw(
     const messageData = JSON.parse(event.data);
     if (messageData.type === "chat") {
       const parsedShape = JSON.parse(messageData.message);
-      existingShapes.push(parsedShape);
+      console.log({ parsedShape });
+      existingShapes.push(parsedShape.shape);
       clearCanvas(existingShapes, canvas, ctx);
     }
   };
@@ -70,7 +71,8 @@ export async function initDraw(
     socket.send(
       JSON.stringify({
         type: "chat",
-        message: JSON.stringify(shape),
+        message: JSON.stringify({ shape }),
+        roomId,
       })
     );
   });
@@ -104,12 +106,12 @@ function clearCanvas(
 }
 
 async function getExistingShapes(roomId: string) {
-  const res = await axios.get(`/api/room/${roomId}`);
+  const res = await axios.get(`${HTTP_BACKEND_URL}/chats/${roomId}`);
   const messages = res.data.messages;
 
-  const shapes = messages.map((x: { messages: string }) => {
-    const messageData = JSON.parse(x.messages); // {type: "rect", x: 0, y: 0, width: 100, height: 100}
-    return messageData;
+  const shapes = messages.map((x: { message: string }) => {
+    const messageData = JSON.parse(x.message);
+    return messageData.shape;
   });
   return shapes;
 }

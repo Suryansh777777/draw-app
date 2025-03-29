@@ -8,10 +8,11 @@ import {
   CreateRoomSchema,
 } from "@repo/common/types";
 import { prismaClient } from "@repo/db/client";
-
+import cors from "cors";
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.post("/signup", async (req, res) => {
   const parsedData = CreateUserSchema.safeParse(req.body);
@@ -86,7 +87,7 @@ app.post("/room", middleware, async (req, res) => {
 app.get("/chats/:roomId", async (req, res) => {
   try {
     const roomId = Number(req.params.roomId);
-    console.log(req.params.roomId);
+    // console.log(req.params.roomId);
     //this is for old messages
     const messages = await prismaClient.chat.findMany({
       where: {
