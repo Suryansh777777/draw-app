@@ -31,19 +31,16 @@ export async function initDraw(
 
   socket.onmessage = (event) => {
     const messageData = JSON.parse(event.data);
+
     if (messageData.type === "chat") {
       const parsedShape = JSON.parse(messageData.message);
-      console.log({ parsedShape });
+      // console.log({ parsedShape });
       existingShapes.push(parsedShape.shape);
       clearCanvas(existingShapes, canvas, ctx);
     }
   };
 
   clearCanvas(existingShapes, canvas, ctx);
-
-  ctx.fillStyle = "rgba(0, 0, 0)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  //the dumb approach but works
 
   let clicked = false;
   let startX = 0;
