@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { initDraw } from "@/draw";
 import { Tool, Topbar } from "./TopBar";
+import { Game } from "@/draw/Game";
 
 export function MainCanvas({
   roomId,
@@ -12,17 +13,17 @@ export function MainCanvas({
   socket: WebSocket;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [game, setGame] = useState<Game>();
   const [selectedTool, setSelectedTool] = useState<Tool>("circle");
 
   useEffect(() => {
-    //@ts-ignore
-
-    window.selectedTool = selectedTool;
-  }, [selectedTool]);
+    game?.setTool(selectedTool);
+  }, [selectedTool, game]);
 
   useEffect(() => {
     if (canvasRef.current) {
-      initDraw(canvasRef.current, roomId, socket);
+      const game = new Game(canvasRef.current, roomId, socket);
+      setGame(game);
     }
   }, [canvasRef, roomId, socket]);
 
