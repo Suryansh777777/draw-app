@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
-import { initDraw } from "@/draw";
 import { Tool, Topbar } from "./TopBar";
 import { Game } from "@/draw/Game";
 
@@ -22,10 +21,14 @@ export function MainCanvas({
 
   useEffect(() => {
     if (canvasRef.current) {
-      const game = new Game(canvasRef.current, roomId, socket);
-      setGame(game);
+      const g = new Game(canvasRef.current, roomId, socket);
+      setGame(g);
+
+      return () => {
+        g.destroy();
+      };
     }
-  }, [canvasRef, roomId, socket]);
+  }, [canvasRef]);
 
   return (
     <div
